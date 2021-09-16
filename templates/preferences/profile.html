@@ -1,0 +1,354 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<style>
+
+ @import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
+{% comment %}
+body{
+  font-family: Montserrat, sans-serif;
+  background: #f8f9fa;
+}
+.container{
+  user-select: none;
+  margin: 100px auto;
+  background: linear-gradient(to top left, #9954bb, #ff0076);
+  color: #b3b8cd;
+  border-radius: 0px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+}
+.cover-photo{
+  background: url({% static 'img/cover.jpg' %});
+  height: 160px;
+  width: 100%;
+  border-radius: 0px 0px 0 0;
+}
+.profile{
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  margin: 93px 0 0 -175px;
+  border: 1px solid #1f1a32;
+  padding: 7px;
+  background: #292343;
+}
+.profile-name{
+    font-size: 25px;
+    font-weight: bold;
+    margin: 27px 0 0 125px;
+    text-transform: capitalize;
+    color: #f8f9fa;
+    font-family: 'Redressed', cursive;
+}
+
+.profile-email{
+  font-size: 18px;
+  text-align: center
+  margin: 6px 0 0 0px;
+  color: #f8f9fa;
+}
+
+.about{
+  margin-top: 35px;
+  line-height: 21px;
+  color: #f8f9fa;
+}
+button{
+  margin: 10px 0 40px 0;
+}
+.msg-btn, .follow-btn{
+  background: #03bfbc;
+  border: 1px solid #03bfbc;
+  padding: 10px 25px;
+  color: #231e39;
+  border-radius: 3px;
+  font-family: Montserrat, sans-serif;
+  cursor: pointer;
+}
+.follow-btn{
+  margin-left: 10px;
+  background: transparent;
+  color: #02899c;
+}
+.follow-btn:hover{
+  color: #231e39;
+  background: #03bfbc;
+  transition: .5s;
+}
+.container i{
+  padding-left: 20px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: .5s;
+}
+.container i:hover{
+  color: #03bfbc;
+}
+
+.fab, .far {
+    font-weight: 400;
+    color: #fff;
+} {% endcomment %}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+._card {
+  max-width: 480px;
+  margin: 45px auto;
+  padding: 12px;
+  background: linear-gradient(to top left, #9954bb, #ff0076);
+  color: #a9ded8;
+  text-align: center;
+  box-shadow: 0 8px 16px rgb(0 0 0 / 3%), 0 3px 6px rgb(0 0 0 / 4%);
+}
+
+
+  ._card .img-wrap {
+    width: 85px;
+    height: 85px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 5px solid #9622ab;
+  }
+  ._card .img-wrap img {
+      width: 85px;
+      height: 85px;
+  }
+
+  {% comment %} .profile{
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  margin: 93px 0 0 -175px;
+  border: 1px solid #1f1a32;
+  padding: 7px;
+  background: #292343;
+} {% endcomment %}
+  
+  
+
+._card h4 {
+    font-size: 30px;
+    color: #fff;
+    font-family: 'Redressed', cursive;
+    font-weight: 600;
+    letter-spacing: 6;
+    text-transform: capitalize;
+}
+  
+ ._card h6 {
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: underline;
+    color: #96fb3a;
+}
+  
+  ._card p {
+    color: #fff;
+    font-size: 12px;
+    max-width: 225px;
+    margin: 0 auto 22px;
+  }
+  
+.cta-wrapper {
+    width: 100%;
+    margin: 0 auto 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 30px);
+    grid-gap: 25px;
+    justify-content: center;
+  }
+
+.cta-wrapper .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #343338;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+}
+
+div._card:hover {
+    -webkit-animation-name: pulse;  
+    animation-name: pulse;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+    @-webkit-keyframes pulse {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+    @keyframes pulse {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+} 
+
+
+
+.cta-wrapper .cta i {
+        font-size: 12px;
+      }
+      
+.cta-wrapper .cta i:hover {
+        color: #fff;
+        background: #343338;
+} 
+
+.header {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    background: linear-gradient(to top left, #9954bb, #ff0076);
+    padding: 2% 0 3%;
+    text-align: center;
+    display: block;
+    margin-top: 30px;
+    font-weight: 900;
+    color: #f8f9fa;
+    border-radius: 8px;
+    display: none;
+}
+
+.page-title {
+		font-size: $font-XL - 4;
+		letter-spacing: 4px;
+
+	}
+
+.page-sub{
+		font-size: $font-S - 2;
+	}
+
+.form-group {
+    margin-bottom: 1rem;
+    display: inline-grid !important;
+    color: #fff;
+    font-weight: bold;
+}
+
+input {
+    overflow: visible;
+    padding: 5px;
+    background: #c0c1c13d;
+    border: 2px solid #a6a6a794;
+    color: #fff;
+}
+
+label {
+    color: #f8f9fa;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+</style>
+
+    <div class="header">
+			<span class="page-title">
+				User Account Profile
+			</span>
+			{% comment %} <span class="page-sub">
+			 portfolio for my #DailyCSSImages challenge
+			</span> {% endcomment %}
+	</div>
+
+ <div class="_card">
+  <div class="img-wrap">
+    <img src="{{ request.user.profile.image.url }}" alt=""> 
+  </div>
+  
+  <h4>{{ request.user.username }}</h4>
+  <h6>{{ request.user.email }}</h6>
+  
+  {% comment %} <p>Fullstack JavaScript engineer with 10 years of experience.</p> {% endcomment %}
+  
+  {% comment %} <div class="cta-wrapper">
+    <div class="cta">
+      <i class="fa fa-phone" aria-hidden="true"></i>
+    </div>
+    <div class="cta">
+      <i class="fa fa-comment" aria-hidden="true"></i>
+    </div>
+    <div class="cta">
+      <i class="fa fa-address-card" aria-hidden="true"></i>
+    </div>
+  </div> {% endcomment %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+
+      <div class="form-group">
+          {{u_form}}
+          {{p_form}}
+      </div>
+
+      <input type="submit" value="Update" class="btn btn-primary btn-primary-sm btn-block">
+    </fieldset>
+  </form>
+</div> 
+
+
+
+    {% comment %} <div class="container">
+      <div class="cover-photo">
+        <img src="{{ request.user.profile.image.url }}" class="profile">
+      </div>
+      <div class="profile-name">{{ request.user.username }}</div>
+      <div class="profile-email">{{ request.user.email }}</div>
+      <p class="about">User Interface Designer and<br>front-end developer</p>
+      <button class="msg-btn">Expenses</button>
+      <button class="follow-btn">Income</button>
+      <div>
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-twitter"></i>
+      </div>
+    </div> {% endcomment %}
+
+
+
+
+ {% endblock %}

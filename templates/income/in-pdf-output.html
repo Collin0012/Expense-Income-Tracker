@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PDF Output</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+
+        <style>
+        
+        @page {
+            size="A4";
+            margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+
+            @top-center {
+                content: "UJIJI CREATIVE"
+            }
+
+            @bottom-right {
+                content: "Page " counter(page) " of " counter(pages);
+            }
+        }
+        
+        
+        </style>
+    </head>
+    <body>
+
+        <main class="main">
+            
+            <img src=""/>
+
+            {% comment %} <h1 class="">MY Logo Here</h1> {% endcomment %}
+
+            <h2>Income List</h2>
+
+            <table class="table">
+
+                <thead class="thead">
+
+                    <tr>
+                        <th>No.</th>
+                        <th>Amount</th>
+                        <th>Source</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+                
+                </thead>
+
+                <tbody>
+
+                    {% for income_ in income %}
+
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ income_.amount }}</td>
+                        <td>{{ income_.source }}</td>
+                        <td>{{ income_.description }}</td>
+                        <td>{{ income_.date }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                    <tr>
+                        <td style="font-weight:bold; margin-top:1cm">Total:</td>
+                        <td style="font-weight:bold; margin-top:1cm">{{ total }}</td>
+                    </tr>
+                
+                </tbody>
+
+            </table>
+
+        </main>
+        
+    </body>
+</html>

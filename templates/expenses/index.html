@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<style>
+
+.expens__main{
+    margin-top: 30px !important;
+}
+
+.expense__custo .alert-success {
+    color: #f8f9fa;
+    background-color: #9954bb;
+    border-color: #c9ebbe;
+    font-size: 16px;
+    font-weight: 600;
+    border-left: 8px solid #79e057;
+    transition: .4s;
+}
+
+
+th a {
+  text-decoration: none;
+  color: #fff !important;
+  max-width: 122px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  line-height: 16px !important;
+  max-height: 32px !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+}
+
+
+td .receipt_ img {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #f8f8f8;
+    border-radius: 50%;
+}
+
+
+td .receipt_:hover {
+    cursor: pointer !important;
+}
+
+
+{% comment %} css for modal popup {% endcomment %}
+.pix__modal{
+    margin-top: 30px !important;
+}
+
+#modal__body{
+    text-align: center;
+}
+
+.my_img{
+    cursor: pointer;
+}
+
+
+
+.modal-header .close {
+    padding: -1rem !important;
+    margin: 0px 2px 0px auto !important;
+    background: #f8f9fa !important;
+    color: #ff0039 !important;
+    width: 35px !important;
+    height: 35px !important;
+    border: 2px solid #ff0039 !important;
+    border-radius: 50% !important;
+}
+
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+    margin-top: 6px;
+}
+
+.modal-header {
+    align-self: center !important;
+    padding: 0.5rem 0.5rem !important;
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+    align-self: center !important;
+}
+
+.modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 0rem;
+}
+
+.modal-body img{
+  transform-origin: 50% 50%;
+  transition: transform 5s, filter 3s ease-in-out;
+  filter: brightness(100%);
+}
+
+.modal-body img:hover {
+    filter: brightness(100%);
+    transform: scale(3);
+}
+
+
+button.btn.btn-secondary {
+    background: #ff0076 !important;
+    border: 2px solid #ff003994 !important;
+    color: #f8f9fa !important;
+    font-weight: 600;
+}
+
+
+.modal.show .modal-dialog {
+    -webkit-transform: none;
+    background: #ff007600 !important;
+    border: #ff0076 !important;
+    padding: 3px !important;
+}
+
+.modal-content.shadow {
+    transform: translateY(40%) !important;
+    border: 2px solid #9954bb !important;
+    background: #9954bbab !important;
+}
+
+
+.modal button.close {
+    padding: -1rem !important;
+    margin: 20px 10px 0px auto !important;
+    background: #f8f9fa !important;
+    color: #ff0039 !important;
+    width: 35px !important;
+    height: 35px !important;
+    border: 0px solid #ff0039 !important;
+    border-radius: 50% !important;
+    font-size: 18px !important;
+    opacity: 1 !important;
+}
+
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #4c474ec7 !important;
+}
+
+.modal{
+    transition: all .8s ease-in-out;
+}
+
+
+</style>
+
+<div class="container">
+    <div class="mt-2"></div>
+
+    <div class="row expens__main">
+
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Expenses</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Expenses<a href=""></a></li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-2 mt-1">
+            <a href="{% url 'add-expenses' %}" class="btn btn-block btn-primary"/>Add Expense</a>
+        </div>
+    </div>
+
+    <div class="container expense__custo">
+        {% include 'partials/_messages.html' %}
+                {% comment %} <div class="_report">
+                    
+                    <div class="alert text-center alert-sm alert-success">
+                        Manage your expenses
+                    </div>
+                    
+                </div> {% endcomment %}
+        {% if expenses.count %}
+
+        <div class="row">
+            <div class="col-md-8"> 
+
+            <a href="{% url 'export-pdf' %}" class="btn btn-primary">Export PDF</a>
+
+            <a href="{% url 'export-excel' %}" class="btn btn-info">Export Excel</a>
+            
+            <a href="{% url 'export-csv' %}" class="btn btn-secondary">Export CSV</a>  
+            
+            </div>
+            <div class="col-md-4">
+
+            
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchField" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal popup -->
+        <div class="modal fade" id="popup1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="close_" aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content shadow">
+                    <div class="modal-header">
+                        {% comment %} <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> {% endcomment %}
+                        {% comment %} <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="close_" aria-hidden="true">&times;</span>
+                        </button> {% endcomment %}
+                    </div>
+                    <div class="modal-body" id="modal__body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close_bot" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+        </div>
+
+        {% comment %} end modal popup {% endcomment %}
+
+
+
+
+        <div class="app-table">
+        
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr class="change__tr">
+                        <th data-popup="I am a ninja"><a href="{% url 'preferences' %}" style="color:#fff;">Amount in {{currency}}]</a></th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Receipt</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for expense in page_obj %}
+
+                    <tr>
+                    
+                        <td>{{ expense.amount }}</td>
+                        <td>{{ expense.category }}</td>
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.date }}</td>
+
+                        <td><div class="receipt_" data-toggle="modal" data-target="#popup1" data-pic=/media/{{ expense.receipt }}><img src="/media/{{ expense.receipt }}" class='img-photo'></div></td>
+                        {% comment %} <td><div class="receipt_"><img src="{% static 'img/receipt.jpg' %}"></div></td> {% endcomment %}
+
+                        {% comment %} <td><a class="btn btn-secondary btn-sm" href="{% url 'expense-edit' expense.id %}">Edit</a></td> {% endcomment %}
+                        <td><a type="button" class="btn btn-danger btn-circle btn-sm" href="{% url 'expense-edit' expense.id %}"><i class="fa fa-edit"></i></a></td>
+                    
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        
+        </div>
+
+
+        <div class="table-output">
+            <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Amount [{{currency}}]</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+
+
+            </tbody>
+            </table>
+        </div>
+
+
+        <div class="pagination-container">
+
+            <div class="pagination__">
+                <div class="pag__title">
+                    Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </div>
+
+                <ul class="pagination align-right float-right mr-auto">
+                    {% if page_obj.has_previous %}
+
+                    <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number}}">Previous</a></li>
+                    {% endif %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number}}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }} &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+    
+</div>
+
+
+<script src="{% static 'js/searchExpenses.js' %}"></script>
+
+
+<script>
+
+const modalBody = document.querySelector('#modal__body')
+const imgPhoto = [...document.getElementsByClassName('img-photo')]
+        console.log(imgPhoto)
+
+        imgPhoto.forEach(item => item.addEventListener('click', e=> {
+            console.log(e.target)
+            const pic = e.target.parentElement.getAttribute('data-pic')
+            console.log(pic)
+            modalBody.innerHTML = `<img src="${pic}" height='250px'>`
+        }))
+
+</script>
+
+
+
+{% endblock %}

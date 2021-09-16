@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+input.form-control.form-control-sm {
+    padding: 20px !important;
+    border-bottom: 2px solid #9954bb82 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    background: #f8f9fb !important;
+}
+
+select.form-control.category__edit {
+    font-size: 16px !important;
+    background: #e4cfef !important;
+}
+
+.add__expense{
+    margin-top: 30px !important;
+}
+
+.alert-danger {
+    color: #ffffff;
+    background-color: #ff7190;
+    border-color: #e86280;
+    font-weight: 600;
+}
+
+{% comment %} input file {% endcomment %}
+.filelabel {
+    width: auto;
+    border: 2px dashed #02bf19 !important;
+    border-radius: 0px;
+    display: block;
+    padding: 5px;
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px 0px;
+    background: #5fef7730;
+}
+.filelabel i {
+    display: block;
+    font-size: 30px;
+    padding-bottom: 5px;
+}
+.filelabel i,
+.filelabel .title {
+    color: #02bf19 !important;
+    transition: 200ms color !important;
+}
+{% comment %} .filelabel:hover {
+  border: 2px solid #1665c4;
+} {% endcomment %}
+.filelabel:hover i,
+.filelabel:hover .title {
+  color: #1665c4;
+}
+#FileInput{
+    display:none;
+}
+
+</style>
+
+<div class="container mt-4 add__expense">
+    <div class="mt-2"></div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'expenses' %}">Expenses</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Expenses<a href=""></a></li>
+        </ol>
+    </nav>
+    
+    <div class="card">
+        <div class="card-body">
+            <form action="{% url 'add-expenses' %}" method="POST" enctype="multipart/form-data">
+
+                {% include 'partials/_messages.html' %}
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="number" name="amount" value="{{values.amount}}" class="form-control form-control-sm">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <input type="text" name="description" value="{{values.description}}" class="form-control form-control-sm">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Category</label>
+                    <select class="form-control category__edit" name="category">
+                        {% for category in categories %}
+
+                        <option name="category" value="{{ category.name }}">{{ category.name }}</option>
+
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {% comment %} <input type="file"  value="{{values.receipt}}" class="form-control form-control-sm"> {% endcomment %}
+
+                <label class="filelabel">
+                    <i class="fa fa-paperclip"></i>
+                    <span class="title">Click here to add a receipt</span>
+                    <input class="FileUpload1" id="FileInput" name="receipt" type="file" value="{{values.receipt}}"/>
+                </label>
+
+                <div class="form-group">
+                    <label for="">Date of Expense</label>
+                    <input type="date" name="expense_date" class="form-control form-control-sm">
+                </div>
+
+                <input type="submit" value="Save Expense" class="btn btn-primary btn-primary-sm btn-block">
+            </form>
+
+
+            {% comment %} <div class="form-group">
+                <form method="POST" enctype="multipart/form-data">
+
+                   {% include 'partials/_messages.html' %} 
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <input type="submit" value="Save Expense" class="btn btn-primary btn-primary-sm btn-block">
+                </form>
+            </div> {% endcomment %}
+
+
+
+        </div>
+    </div>
+        
+</div>
+
+
+<script>
+$("#FileInput").on('change',function (e) {
+            var labelVal = $(".title").text();
+            var oldfileName = $(this).val();
+                fileName = e.target.value.split( '\\' ).pop();
+
+                if (oldfileName == fileName) {return false;}
+                var extension = fileName.split('.').pop();
+
+            if ($.inArray(extension,['jpg','jpeg','png']) >= 0) {
+                $(".filelabel i").removeClass().addClass('fa fa-file-image-o');
+                $(".filelabel i, .filelabel .title").css({'color':'#208440'});
+                $(".filelabel").css({'border':' 2px solid #208440'});
+            }
+            else if(extension == 'pdf'){
+                $(".filelabel i").removeClass().addClass('fa fa-file-pdf-o');
+                $(".filelabel i, .filelabel .title").css({'color':'red'});
+                $(".filelabel").css({'border':' 2px solid red'});
+
+            }
+  else if(extension == 'doc' || extension == 'docx'){
+            $(".filelabel i").removeClass().addClass('fa fa-file-word-o');
+            $(".filelabel i, .filelabel .title").css({'color':'#2388df'});
+            $(".filelabel").css({'border':' 2px solid #2388df'});
+        }
+            else{
+                $(".filelabel i").removeClass().addClass('fa fa-file-o');
+                $(".filelabel i, .filelabel .title").css({'color':'black'});
+                $(".filelabel").css({'border':' 2px solid black'});
+            }
+
+            if(fileName ){
+                if (fileName.length > 10){
+                    $(".filelabel .title").text(fileName.slice(0,4)+'...'+extension);
+                }
+                else{
+                    $(".filelabel .title").text(fileName);
+                }
+            }
+            else{
+                $(".filelabel .title").text(labelVal);
+            }
+        });
+</script>
+
+{% endblock %}

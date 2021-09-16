@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+psycopg2-binary = "==2.8.6"
+django-heroku = "*"
+gunicorn = "*"
+validate-email = "*"
+six = "*"
+flask = "*"
+weasyprint = "==51"
+xlwt = "*"
+pycairo = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

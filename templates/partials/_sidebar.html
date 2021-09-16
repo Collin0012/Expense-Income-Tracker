@@ -1,0 +1,165 @@
+{% load static %}
+
+<style>
+
+/*--------------------------side-footer------------------------------*/
+
+.sidebar-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    padding-top: 12px;
+    background: #f5f5f563;
+    padding-bottom: 12px;
+}
+
+.sidebar-footer > a {
+  flex-grow: 1;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  position: relative;
+}
+
+
+.sidebar-footer > a .notification {
+    position: absolute;
+    top: 0;
+    margin-top: -10px;
+    margin-left: -12px;
+}
+
+
+.badge-sonar {
+  display: inline-block;
+  background: #980303;
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+  position: absolute;
+  top: 0;
+}
+
+.badge-sonar:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 2px solid #980303;
+  opacity: 0;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  animation: sonar 1.5s infinite;
+}
+
+
+.label_bottom {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
+    float: left;
+    margin-left: 15px;
+}
+
+.label_bottom span {
+    color: #9954bb !important;
+    font-weight: bold !important;
+}
+
+/*--------------------------page-content-----------------------------*/
+
+
+</style>
+
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          {% comment %} <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <span data-feather="home"></span>
+              Dashboard <span class="sr-only">(current)</span>
+            </a>
+          </li> {% endcomment %}
+
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Dashboard</span>
+            <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+              <span data-feather="plus-circle"></span>
+            </a>
+          </h6>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'expenses' %}">
+              <i class="fa fa-th"></i>Expenses
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'income' %}">
+              <i class="fa fa-wallet"></i>Income
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Summary</span>
+          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'stats' %}">
+              <i class="fa fa-th"></i>Expenses
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'income_stats' %}">
+              <i class="fa fa-wallet"></i>Income
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Settings</span>
+          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'preferences' %}">
+              <i class="fa fa-cog"></i>General
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile_view' %}">
+              <i class="fa fa-user-cog"></i>Account
+            </a>
+          </li>
+        </ul>
+
+{% comment %} Side bar footer {% endcomment %}
+    <div class="sidebar-footer">
+      {% comment %} <a href="#">
+        <i class="fa fa-bell"></i>
+        <span class="badge badge-pill badge-warning notification">3</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-envelope"></i>
+        <span class="badge badge-pill badge-success notification">7</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-cog"></i>
+      </a> {% endcomment %}
+      <a href="#">
+        <p class="label_bottom">Expense<span>traker </span></p>
+      </a>
+    </div>
+
+      </div>
+      
+
+    </nav> 

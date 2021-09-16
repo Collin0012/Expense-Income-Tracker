@@ -1,0 +1,323 @@
+{% extends 'base_auth.html' %}
+
+{% load static %} 
+
+{% block content %}
+
+<style>
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap');
+
+::placeholder {
+  color: #ddd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #ddd;
+  font-family: 'Montserrat', sans-serif;
+}
+
+input{
+  display:inline-block;
+  width: 100%;
+  height: 3.23rem;
+  border: none;
+  outline: none;
+  text-align: center;
+  border-radius: 0px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+button {
+  display:inline-block;
+  width: 100%;
+  height: 3.23rem;
+  border: none;
+  outline: none;
+  text-align: center;
+  border-radius: 0px;
+  margin-top: 5px;
+
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+.login {
+  min-height: 100vh;
+  width: 100%;  background:url('{% static 'img/bg_exp.png' %}'),#023262 ;
+  background-size: cover;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+  .container__ {
+    position: relative;
+    width: 90%;
+    max-width: 420px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  
+  .title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .social-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+   
+
+      button &:hover {
+        background: rgba(#fff, .3);
+      }
+      
+      i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        background-color: #fff;
+        border-radius: 50%;
+        font-size: 1.4rem;
+        padidng-left: 2px;
+        text-align: center;
+        margin-right: .25rem;
+      }
+
+
+        &.fa-twitter {
+          color: #00acee;
+        }
+        
+        &.fa-google {
+          color: #ff3e30;
+        }
+  
+  
+  .separator {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+    .separator span {
+       display:block;
+       width: 100%;
+       height: 1px;
+       background: #ddd;
+       margin: 1.5rem;
+      }
+ 
+
+/*** FORM  **/
+
+form {
+  width: 100%;
+}
+  
+  .form__group{
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+    
+  .form__group label {
+      display: block;
+      letter-spacing: .5px;
+      margin-bottom: 0.5rem;
+      color: dark-blue;
+      text-align: center;
+    }
+    
+    input {
+      letter-spacing: .5px !important;
+      font-size: 1.1rem !important;
+      padding: 0 1.5rem !important;
+      background: rgba(255, 255, 255, 0.15);
+
+    }    
+  
+
+button[type='submit']{
+  background: #4ad24e;
+  border: none !important;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  width: inherit;
+  text-align: center
+  margin: 1rem 0;
+  transition: all .3s linear;
+}
+
+
+  button[type='submit']:hover{
+    background: #ffc800;
+    opacity: .8;
+    border: none !important;
+  }
+
+.additional-act {
+  width: 100%;
+  text-align: center;
+  letter-spacing: .7px;
+  margin: .5rem 0;
+}
+
+
+  span {
+    color: #ecbb08;
+    cursor: pointer;
+  }
+
+  .form__group {
+    text-align: center !important;
+}
+
+.container__ a {
+    color: #4ad24e !important;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.container__ a:hover {
+    color: #f8f8f8 !important;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+    height: 156px;
+    margin-left: 2px;
+}
+
+
+[type="submit"]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+    border: 2px solid #4ad24e !important;
+    padding: 5px !important;
+    color: #ffffff !important;
+    border-radius: 0px !important;
+}
+
+
+</style>
+{% comment %} 
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    
+        <div class="card mt-5">
+
+            <div class="card-body">
+
+                <div class="card-title py-2">
+                <h4 class="text-center">Login to Your Account</h4>
+                </div>
+
+                <form action="{% url 'login' %}" method="post">
+
+                {% csrf_token %}
+
+                {% include 'partials/_messages.html' %}
+                
+                    <div class="form-group">
+                        <input type="text" name="username" id="usernameField" placeholder="Username" class="form-control form-control-sm" value="{{fieldValues.username}}">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" id="passwordField" placeholder="Password" class="form-control form-control-sm">
+                    </div> 
+
+                    <input type="submit" value="Login" class="btn btn-block btn-primary submit__btn"/>
+                
+                </form>
+                
+                <div class="container bottom_login">
+                    <span class="text-lead lead">Don't have an account? </span>
+                    <a href="{% url 'register' %}">Register</a>
+                    <br>
+                    <span class="text-lead lead">Forgot your password?</span>
+                    <a href="{% url 'request-password' %}">Reset Password</a>
+                </div>
+
+            </div>
+
+        </div>
+    
+    </div>
+    <div class="col-md-4"></div>
+</div> {% endcomment %}
+
+
+
+
+
+<section class="login">
+  <div class="container__">
+    {% comment %} <h3 class="title">Sign in</h3> {% endcomment %}
+
+    
+      <img src="{% static 'img/expense__login.png' %}" alt="" />
+    
+    
+    {% comment %} <div class="social-login">
+      
+      <button><i class="fab fa-twitter"></i>Twitter</button>
+      <button><i class="fab fa-google"></i>Google</button>
+      
+    </div> {% endcomment %}
+    
+    {% comment %} <p class="separator"><span>&nbsp;</span>Or<span>&nbsp;</span></p> {% endcomment %}
+    
+    <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+
+    {% include 'partials/_messages.html' %}
+
+      <div class="form__group">
+        {% comment %} <label for="username">Username</label> {% endcomment %}
+        <input type="text" name="username" id="usernameField" placeholder="Username" value="{{fieldValues.username}}">   
+        {% comment %} <input type="text" name="username" id="usernameField" placeholder="Username" class="form-control form-control-sm" value="{{fieldValues.username}}">        {% endcomment %}
+      </div>
+      
+      <div class="form__group">
+        {% comment %} <label for="password">Password</label> {% endcomment %}
+        <input type="password" name="password" id="passwordField" placeholder="Password"> 
+        {% comment %} <input type="password" name="password" id="passwordField" placeholder="Password" class="form-control form-control-sm">          {% endcomment %}
+      </div>
+      
+      <button type="submit">Sign in</button>
+      {% comment %} <input type="submit" value="Login" class="btn btn-block btn-primary submit__btn"/> {% endcomment %}
+    </form>
+    
+    <p class="additional-act">Don't have an account? <span><a href="{% url 'register' %}">Register</a></span></p>
+
+    <p class="additional-act">Forget your password? <span><a href="{% url 'request-password' %}">Reset Password</a></span></p>
+    
+    
+  </div>
+</section>
+
+<script src="{% static 'js/register.js' %}"></script>
+
+{% endblock content %}

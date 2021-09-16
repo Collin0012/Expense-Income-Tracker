@@ -1,0 +1,124 @@
+#header {
+    background: #3b3d3e !important;
+    color: #ffc;
+}
+
+#user-tools {
+    font-size: 12px !important;
+    text-transform: capitalize !important;
+    color: #fff !important;
+}
+
+#content-related {
+    margin-right: -300px;
+    border: 3px solid #ccc !important;
+}
+
+#content-related {
+    background: #eaeaea !important;
+}
+
+.dashboard #content {
+    width: auto !important;
+}
+
+#content h1{
+    background: #3b3d3e !important;
+    padding: 10px !important;
+    color: #fff !important;
+}
+
+#content-main {
+    background: #333 !important;
+}
+
+.module caption{
+
+    background: #2fb966 !important;
+}
+
+.submit-row {
+    background: #333 !important;
+    border: none !important;
+    border-radius: 0px !important;
+    text-align: start !important;
+}
+
+.submit-row input {
+    border-radius: 0px !important;
+    background: #2fb966 !important;
+}
+
+div.breadcrumbs {
+    background: #2fb966 !important;
+    border: none !important;
+    color: #f6f6f6 !important;
+}
+
+.main.shifted > #nav-sidebar {
+    margin-top: 20px !important;
+}
+
+.toggle-nav-sidebar {
+    border-right: none !important;
+    background-color: #2fb966 !important;
+    color: #333 !important;
+    margin-top: 20px !important;
+}
+
+.aligned .form-row input {
+    border-radius: 0 !important;
+    border: 2px solid #2fb966 !important;
+}
+
+.wide label {
+    color: #2fb966 !important;
+    font-size: 14px !important;
+}
+
+#content h1 {
+    font-weight: 500 !important;
+    margin: 0 0 12px !important;
+}
+
+.object-tools a.addlink {
+    background: #2fb966 !important;
+    border-radius: 0 !important;
+    margin: 0 9px 10px 0 !important;
+}
+
+button {
+    border-width: 0px !important;
+}
+
+
+input[type=text], input[type=password]{
+    border: 1px solid #2fb966 !important;
+    border-radius: 0px !important;
+    padding: 5px 6px;
+    margin-top: 0;
+}
+
+.login #content {
+    padding: 20px 20px !important;
+    background: #333 !important;
+}
+
+.login #footer {
+    clear: both;
+    padding: 0 !important;
+}
+
+.login .submit-row {
+    padding: 0 !important;
+}
+
+.login input[type="submit"] {
+    width: 100% !important;
+    margin-top: 12px !important;
+}
+
+.login input {
+    color: -internal-light-dark(#2fb966, white) !important;
+    border-radius: 0 !important;
+}

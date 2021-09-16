@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<style>
+
+.pix__modal{
+    margin-top: 30px !important;
+}
+
+#modal__body{
+    text-align: center;
+}
+
+.my_img{
+    cursor: pointer;
+}
+
+
+
+.modal-header .close {
+    padding: -1rem !important;
+    margin: 0px 2px 0px auto !important;
+    background: #f8f9fa !important;
+    color: #ff0039 !important;
+    width: 35px !important;
+    height: 35px !important;
+    border: 2px solid #ff0039 !important;
+    border-radius: 50% !important;
+}
+
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+    margin-top: 6px;
+}
+
+.modal-header {
+    align-self: center !important;
+    padding: 0.5rem 0.5rem !important;
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+    align-self: center !important;
+}
+
+.modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 0rem;
+}
+
+.modal-body img{
+  transition: transform .2s;
+}
+
+.modal-body img:hover {
+    transform: scale(2.5);
+    transition: transform .2s;
+}
+
+.modal.show .modal-dialog {
+    -webkit-transform: none;
+    transform: translateY(30%) !important;
+}
+
+button.btn.btn-secondary {
+    background: #f8f9fa !important;
+    border: 2px solid #ff003994 !important;
+    color: #ff003991 !important;
+    font-weight: 600;
+}
+
+.modal.show .modal-dialog {
+    -webkit-transform: none;
+    transform: translateY(30%) !important;
+    background: #ff0076 !important;
+    border: #ff0076 !important;
+    padding: 3px !important;
+}
+
+</style>
+
+
+{% comment %} modal {% endcomment %}
+{% comment %} <div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Here i am</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content" id="modal__body">
+			
+		</div>
+	</div>
+</div> {% endcomment %}
+
+<!-- Modal -->
+<div class="modal fade" id="popup1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content shadow">
+      <div class="modal-header">
+        {% comment %} <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> {% endcomment %}
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="close_" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal__body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close_bot" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} modal end {% endcomment %}
+
+
+<div class="text-center pix__modal">
+    <div class="spinner-border" role="status" id="spinner"></div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Picture</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody id="tablebodybox">
+    
+  </tbody>
+</table>
+
+
+
+{% endblock %}

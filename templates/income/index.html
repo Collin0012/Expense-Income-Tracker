@@ -1,0 +1,721 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<style>
+
+.income__main{
+    margin-top: 30px !important;
+}
+
+th a {
+  text-decoration: none;
+  color: #fff !important;
+  max-width: 122px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  line-height: 16px !important;
+  max-height: 32px !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+}
+
+.alert-success {
+    color: #f8f9fa;
+    background-color: #9954bb;
+    border-color: #c9ebbe;
+    font-size: 16px;
+    font-weight: 600;
+    border-left: 8px solid #79e057;
+    transition: .4s;
+}
+
+
+{% comment %} body {
+  font-family: Arial, sans-serif;
+  background: url(http://www.shukatsu-note.com/wp-content/uploads/2014/12/computer-564136_1280.jpg) no-repeat;
+  background-size: cover;
+  height: 100vh;
+} {% endcomment %}
+
+{% comment %} h1 {
+  text-align: center;
+  font-family: Tahoma, Arial, sans-serif;
+  color: #06D85F;
+  margin: 80px 0;
+}
+
+.box {
+  width: 40%;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.2);
+  padding: 35px;
+  border: 2px solid #fff;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+}
+
+.button {
+  font-size: 1em;
+  padding: 10px;
+  color: #fff;
+  border: 2px solid #06D85F;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+.button:hover {
+  background: #06D85F;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+} {% endcomment %}
+
+
+#exemplo{
+	display: none;
+}
+
+.full-modal{
+  display: none;
+  position: absolute;
+  z-index: 999999;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #F5F5F5;
+  overflow: hidden;
+}
+.full-modal h1{font-size: 25px;margin: 5px;}
+.full-modal h2{font-size: 22px;margin: 5px;}
+.full-modal h3{font-size: 20px;margin: 5px;}
+.full-modal h4{font-size: 18px;margin: 5px;}
+.full-modal h5{font-size: 14px;margin: 5px;}
+.full-modal h6{font-size: 10px;margin: 5px;}
+.full-modal .header-modal {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 45px;
+}
+.full-modal .close-modal, .full-modalAppend .close-modal{
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  width: 75px;
+  height: 75px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.full-modal .close-modal .lr, .full-modalAppend .close-modal .lr {
+  z-index: 1051;
+  width: 1px;
+  height: 75px;
+  margin-left: 35px;
+  background-color: #2c3e50;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.full-modal .close-modal .lr .rl , .full-modalAppend .close-modal .lr .rl{
+  z-index: 1052;
+  width: 1px;
+  height: 75px;
+  background-color: #2c3e50;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.full-modal .body-modal{
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  padding-top: 40px;
+  overflow: auto;
+}
+.full-modalAppend{
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  z-index: 999999991;
+}
+
+/*ANIMATIONS*/
+
+@-webkit-keyframes cd-bounce-2 {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100px);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateX(20px);
+  }
+
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@-moz-keyframes cd-bounce-2 {
+  0% {
+    opacity: 0;
+    -moz-transform: translateX(-100px);
+  }
+
+  60% {
+    opacity: 1;
+    -moz-transform: translateX(20px);
+  }
+
+  100% {
+    -moz-transform: translateX(0);
+  }
+}
+@keyframes cd-bounce-2 {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100px);
+    -moz-transform: translateX(-100px);
+    -ms-transform: translateX(-100px);
+    -o-transform: translateX(-100px);
+    transform: translateX(-100px);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateX(20px);
+    -moz-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    -o-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes cd-bounce-2-inverse {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100px);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateX(-20px);
+  }
+
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@-moz-keyframes cd-bounce-2-inverse {
+  0% {
+    opacity: 0;
+    -moz-transform: translateX(100px);
+  }
+
+  60% {
+    opacity: 1;
+    -moz-transform: translateX(-20px);
+  }
+
+  100% {
+    -moz-transform: translateX(0);
+  }
+}
+@keyframes cd-bounce-2-inverse {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100px);
+    -moz-transform: translateX(100px);
+    -ms-transform: translateX(100px);
+    -o-transform: translateX(100px);
+    transform: translateX(100px);
+  }
+ 
+  60% {
+    opacity: 1;
+    -webkit-transform: translateX(-20px);
+    -moz-transform: translateX(-20px);
+    -ms-transform: translateX(-20px);
+    -o-transform: translateX(-20px);
+    transform: translateX(-20px);
+  }
+
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+}
+
+@-webkit-keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-30px);
+  }
+  80% {
+    -webkit-transform: translateY(10px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(2000px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+  80% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  z-index: 99999999;
+}
+
+@-webkit-keyframes bounceOutDown {
+  0% {
+    -webkit-transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+    -webkit-transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+  }
+}
+@keyframes bounceOutDown {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(2000px);
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+@-webkit-keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+.bounceOutDown {
+  -webkit-animation-name: bounceOutDown;
+  animation-name: bounceOutDown;
+}
+
+.bounceInUp {
+  -webkit-animation-name: bounceInUp;
+  animation-name: bounceInUp;
+}
+
+
+</style>
+
+<div class="container">
+    <div class="mt-2"></div>
+
+    <div class="row income__main">
+
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Income</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Income<a href=""></a></li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-2 mt-1">
+            <a href="{% url 'add-income' %}" class="btn btn-block btn-primary"/>Add Income</a>
+        </div>
+    </div>
+
+    <div class="container income__custom">
+        {% include 'partials/_messages.html' %}
+        {% if income.count %}
+
+        <div class="row">
+            <div class="col-md-8">
+            
+            <a href="{% url 'in-export-pdf' %}" class="btn btn-primary">Export PDF</a>
+
+            <a href="{% url 'in-export-excel' %}" class="btn btn-info">Export Excel</a>
+            
+            <a href="{% url 'in-export-csv' %}" class="btn btn-secondary">Export CSV</a>  
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchField" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-table">
+        
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr class="change__tr">
+                        <th><a href="{% url 'preferences' %}" style="color:#fff;">Amount in {{currency}}]</a></th>
+                        <th>Source</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+
+                    {% for income in page_obj %}
+
+                    <tr>
+                    
+                        <td>{{ income.amount }}</td>
+                        <td>{{ income.source }}</td>
+                        <td>{{ income.description }}</td>
+                        <td>{{ income.date }}</td>
+
+
+                        {% comment %} <td><a class="btn btn-secondary btn-sm" href="{% url 'income-edit' income.id %}">Edit</a></td> {% endcomment %}
+                        <td><a type="button" class="btn btn-danger btn-circle btn-sm" href="{% url 'income-edit' income.id %}"><i class="fa fa-edit"></i></a></td>
+
+
+                        {% comment %} <td><a type="button" class="btn btn-danger btn-circle btn-sm button open" href="#popup1{% url 'income-edit-pop' income.id %}"><i class="fa fa-edit"></i></a></td> {% endcomment %}
+
+
+                        {% comment %} MODAL POPUP {% endcomment %}
+                        {% comment %} <div id="exemplo" data-mdCreate="true">
+                          <div class="close-modal" data-mdDimiss="true">
+                            <div class="lr">
+                              <div class="rl"></div>
+                          </div>
+                        </div>
+                        <div class="header-modal text-center">
+                          <h1>#{{ request.user.username }}</h1>
+                        </div>
+                        <div class="body-modal">
+                          <h1>Corpo do modal</h1>
+                                      <div class="card">
+                                      <div class="card-body">
+                                          <form action="{% url 'income-edit' income.id %}" method="post">
+
+                                              {% include 'partials/_messages.html' %}
+                                              {% csrf_token %}
+
+                                              <div class="form-group">
+                                                  <label for="">Amount</label>
+                                                  <input type="number" name="amount" value="{{values.amount}}" class="form-control form-control-sm">
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label for="">Description</label>
+                                                  <input type="text" name="description" value="{{values.description}}" class="form-control form-control-sm">
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label for="">Source</label>
+                                                  <select class="form-control" name="source">
+                                                      <option selected name="source" value="{{ values.source }}">{{ values.source }}</option>
+                                                      {% for source in sources %}
+
+                                                      <option name="source" value="{{ source.name }}">{{ source.name }}</option>
+
+                                                      {% endfor %}
+                                                  </select>
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label for="">Date of Income</label>
+                                                  <input type="date" value="{{values.date |date:'Y-m-d' }}" name="income_date" class="form-control form-control-sm">
+                                              </div>
+
+                                              <input type="submit" value="Update" class="btn btn-primary btn-primary-sm btn-block">
+                                          </form>
+                                        </div>
+                                      </div>
+                        </div>
+                        </div> {% endcomment %}
+
+
+                        {% comment %} <div id="popup1" class="overlay">
+                            <div class="popup">
+                                <h2>Here i am</h2>
+                                <a class="close" href="#">&times;</a>
+                                <div class="content">
+                                    Thank to pop me out of that button, but now i'm done so you can close this window.
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                    
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        
+        </div>
+
+
+        <div class="table-output">
+            <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Amount [<span class="_unit">{{currency}}</span>]</th>
+                    <th>Source</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+
+
+            </tbody>
+            </table>
+        </div>
+
+
+        <div class="pagination-container">
+
+            <div class="">
+            
+                Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+                <ul class="pagination align-right float-right mr-auto">
+                    {% if page_obj.has_previous %}
+
+                    <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number}}">Previous</a></li>
+                    {% endif %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number}}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }} &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            
+            </div>
+
+            {% endif %}
+
+        </div>
+        
+    </div> 
+    
+</div>
+
+
+<script>
+
+var _show    = 'animated bounceInUp';
+var _create  = 'animated fadeIn';
+var _hide    = 'animated bounceOutDown';
+var _destroy = 'animated fadeOut';
+
+
+fullModal = {
+
+    open : function(who, link){
+        if(link){
+            $("*").find('.full-modal').load(noCache(link), function(){});
+            $(who).addClass('full-modal' + _show).show();
+        }
+        if(!who)
+            $( "*" ).find('.full-modal').show().addClass(_show);
+        $('body').css('overflow', 'hidden');
+        $( "*" ).find(who).show().addClass(_show);
+    },
+
+    close : function(callback){
+        $('body').css('overflow', 'auto');
+        $( "*" ).find('.full-modal').removeClass(_show).addClass(_hide);
+        if(callback)
+            callback();
+        setTimeout(function(){
+            $( "*" ).find('.full-modal').hide();
+        },1000);
+    },
+
+    append : function(who, where, link){
+        if(!link)
+            $("*").find(where).append(who);
+            $(who).addClass('full-modalAppend ' + _create).show();
+        $("*").find('.full-modal').load(noCache(link), function(){});
+        $(who).addClass('full-modalAppend ' + _create).show();
+    },
+
+    disappend : function(callback){
+        $("*").find('.full-modalAppend').removeClass(_create).addClass(_destroy);
+        setTimeout(function(){
+            if(callback){
+                callback();
+            }
+            $( "*" ).find('.full-modalAppend').hide();
+        },1000);
+    },
+
+    init  : function(){
+        // Create full modal in mdCreate tag
+        $('body').append($( "*" ).find("[data-mdCreate='true']"));
+        $( "*" ).find("[data-mdCreate='true']").addClass('full-modal');
+        $("*").find('.full-modal').hide();
+
+        // Close modal to click in dimiss tag
+        $( "*" ).find("[data-mdDimiss='true']").on('click', function(){
+            $('body').css('overflow', 'auto');
+            $(this).parent().removeClass(_show).addClass(_hide);
+            setTimeout(function(){
+                $( "*" ).find('.full-modal').hide();
+            },1000);
+        });
+        // Close append data
+        $( "*" ).find("[data-mdCloseAppend='true']").on('click', function(){
+            $(this).parent().removeClass(_create).addClass(_destroy);
+            setTimeout(function(){
+                $( "*" ).find('.full-modalAppend').hide();
+            },1000);
+        });
+    }
+
+};
+
+
+fullModal.init();
+$('.open').click(function () {
+	fullModal.open();
+});
+
+</script>
+
+
+<script src="{% static 'js/searchIncome.js' %}"></script>
+
+
+
+{% endblock %}

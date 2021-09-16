@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<style>
+
+.alert-success {
+    color: #f8f9fa;
+    background-color: #9954bb;
+    border-color: #c9ebbe;
+    font-size: 16px;
+    font-weight: 600;
+    border-left: 8px solid #79e057;
+    transition: .4s;
+}
+</style>
+
+
+<div class="container mt-5 __pref__">
+
+    {% include 'partials/_messages.html' %}
+
+<h5>Preferred Currency</h5>
+
+    <form class="preferences__" action="{% url 'preferences' %}" method="post">
+
+    {% csrf_token %}
+    
+        <div class="input-group">
+        <select name="currency" class="custom-select" id="inputGroupSelect04">
+
+            {% if user_preferences.currency %}
+
+            <option name="currency" selected value="{{ user_preferences.currency}}">{{user_preferences.currency}}</option>
+
+            {% endif %}
+
+        
+            {% for currency in currencies %}
+
+            <option name="currency" value="{{ currency.name }} - {{ currency.value }}">{{ currency.name }} - {{ currency.value }}</option>
+
+            {% endfor %}
+        </select>
+        <div class="input-group-append">
+            <input type="submit" value="Save" class="btn btn-outline-secondary" >
+        </div>
+        </div
+
+    </form>
+
+</div>
+
+<hr />
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TrulyExpenses {% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  {% comment %} <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet"> {% endcomment %}
+
+
+
+  {% comment %} <script src="https://kit.fontawesome.com/861b7a35be.js" crossorigin="anonymous"></script> {% endcomment %}
+
+  
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+      <!-- Custom styles for this template -->
+  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  {% comment %} <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet"> {% endcomment %}
+  </head>
+
+  <style> </style>
+
+  <body>
+    <!--=================== NAV BAR =====================-->
+    {% comment %} <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow"> {% endcomment %}
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Expense<span>traker </span></a>
+      {% comment %} <input class="form-control form-control-dark w-100" type="text" placeholder="Search..." aria-label="Search"> {% endcomment %}
+      <ul class="navbar-nav px-3" style="display:flex; flex-direction:row; align-items:center;">
+
+        <li class="nav-item text-nowrap">
+
+          <a class="nav-link user__name" href="#"> 
+            #{{ request.user.username }}
+          </a>
+
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{{ request.user.profile.image.url }}" width="40" height="40" class="rounded-circle">
+          </a>
+          <div class="dropdown-menu drop__edit" role="menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'expenses' %}">Dashboard</a>
+            <a class="dropdown-item" href="{% url 'profile_view' %}">Profile</a>
+            <a class="dropdown-item" href="">
+              <form class="log__out" action="{% url 'logout' %}" method="POST"> 
+              {% csrf_token %}
+
+                <input class="text text-capitalize" type="submit" value="Sign out"/>
+            
+              </form>
+            </a>
+          </div>
+        </li>  
+
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        {% include 'partials/_sidebar.html' %}
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          {% block content %}
+
+
+          {% endblock %}
+        </main>
+      </div>
+    </div>
+          <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+          {% comment %} <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script> {% endcomment %}
+          <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+          <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+          <script src="{% static 'js/main.js' %}"></script>
+
+           <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+          <script src="{% static 'js/fontawesome.js' %}" crossorigin="anonymous"></script>
+          <script src="{% static 'js/pixmodal.js' %}"></script>
+  </body>
+</html>

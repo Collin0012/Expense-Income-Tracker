@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .expens__main {
+        margin-top: 30px !important;
+    }
+</style>
+
+<div class="container">
+    <div class="mt-2"></div>
+
+    <div class="row expens__main">
+
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Expenses Summary</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Summary<a href=""></a></li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-2 mt-1">
+            <a href="#" class="btn btn-block btn-primary"/>Back</a>
+        </div>
+
+        <div class="" style="height:500px; width:500px; margin:0 auto;">
+            <canvas id="myChart" class="myChart" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    
+</div>
+
+
+<script src="{% static 'js/stats.js' %}">
+
+
+</script>
+
+
+
+{% endblock %}
